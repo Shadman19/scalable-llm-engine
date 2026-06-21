@@ -182,9 +182,9 @@ kubectl apply -f k8s/09-ingress.yaml         # adjust host + TLS
 
 | Doc | Covers |
 |-----|--------|
-| [`docs/01-mvp-setup.md`](docs/01-mvp-setup.md) | **Part 1** — MiniMax API MVP, gateway rationale, model routing |
-| [`docs/06-scalable-deployment.md`](docs/06-scalable-deployment.md) | **Part 6** — Docker, Kubernetes, Redis, queue, autoscaling |
-| [`docs/07-self-hosted-feasibility.md`](docs/07-self-hosted-feasibility.md) | **Part 7** — self-hosting break-even, GPU sizing, vLLM, compliance |
+| [`docs/mvp-setup.md`](docs/01-mvp-setup.md) | **Part 1** — MiniMax API MVP, gateway rationale, model routing |
+| [`docs/scalable-deployment.md`](docs/06-scalable-deployment.md) | **Part 6** — Docker, Kubernetes, Redis, queue, autoscaling |
+| [`docs/self-hosted-feasibility.md`](docs/07-self-hosted-feasibility.md) | **Part 7** — self-hosting break-even, GPU sizing, vLLM, compliance |
 | [`docs/architecture.md`](docs/architecture.md) | Codebase map + design principles |
 
 ---
