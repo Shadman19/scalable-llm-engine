@@ -1,0 +1,25 @@
+# API autoscaling on CPU. The API is I/O-bound (waiting on MiniMax), so CPU is
+# a rough proxy; for tighter control scale on a custom metric like
+# requests-per-second via Prometheus Adapter. Starts at 2, bursts to 10.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: llm-api-hpa
+  namespace: llm-engine
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: llm-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 65
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 120

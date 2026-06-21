@@ -1,0 +1,48 @@
+# Worker autoscaling on QUEUE DEPTH — the correct signal for a queue consumer.
+# Uses KEDA (https://keda.sh), which can scale a Deployment on Redis list length
+# (and down to zero when idle, unlike a plain HPA). Install KEDA first:
+#   helm repo add kedacore https://kedacore.github.io/charts
+#   helm install keda kedacore/keda --namespace keda --create-namespace
+#
+# Rule below: keep ~20 queued jobs per worker; burst 1 -> 20 replicas.
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: llm-worker-scaler
+  namespace: llm-engine
+spec:
+  scaleTargetRef:
+    name: llm-worker
+  minReplicaCount: 1
+  maxReplicaCount: 20
+  cooldownPeriod: 120
+  triggers:
+    - type: redis
+      metadata:
+        address: redis:6379
+        listName: "llm:jobs"
+        listLength: "20"
+---
+# --- Plain-HPA fallback (if you do NOT want to install KEDA) -----------------
+# A standard HPA cannot read queue depth without a custom metrics adapter, so
+# this falls back to CPU. Delete the KEDA block above if you use this instead.
+#
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: llm-worker-hpa
+#   namespace: llm-engine
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: llm-worker
+#   minReplicas: 1
+#   maxReplicas: 20
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: 70

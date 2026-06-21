@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-api
+  namespace: llm-engine
+spec:
+  selector:
+    app: llm-api
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: ClusterIP
