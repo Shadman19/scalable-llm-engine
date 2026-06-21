@@ -159,7 +159,7 @@ defaults — the pure logic — so they run anywhere.
 
 ## Deploying to Kubernetes
 
-See [`docs/06-scalable-deployment.md`](docs/06-scalable-deployment.md) for the
+See [`scalable-deployment.md`](docs/06-scalable-deployment.md) for the
 full walkthrough. Short version:
 
 ```bash
