@@ -1,5 +1,9 @@
 # Scalable LLM Engine
 
+### 🔗 [Try the live demo →](https://shadman19.github.io/scalable-llm-engine/)
+
+Paste a technician's messy work-order notes and watch the engine turn them into a clean, structured summary — no setup required.
+
 ![CI](https://github.com/Shadman19/scalable-llm-engine/actions/workflows/ci.yml/badge.svg)
 
 ## Demo
