@@ -1,5 +1,19 @@
 # Scalable LLM Engine
 
+![CI](https://github.com/Shadman19/scalable-llm-engine/actions/workflows/ci.yml/badge.svg)
+
+## Demo
+
+> **▶️ Watch the 60-second demo:** [LINK_HERE]
+
+The engine running locally — a technician's raw work-order notes turned into a
+clean, structured client summary via the MiniMax-backed API, served through the
+auto-generated OpenAPI UI.
+
+<!-- Optional: add a screenshot of the /docs page or smoke-test output:
+![API docs](docs/images/demo.png)
+-->
+
 A production-grade **LLM gateway** built around the MiniMax API, designed to scale
 on Kubernetes. It demonstrates a clean path from a fast MVP to a horizontally
 scalable, cost-tracked, autoscaling service — and a planned, low-friction
