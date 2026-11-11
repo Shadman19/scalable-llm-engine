@@ -6,22 +6,17 @@ Paste a technician's messy work-order notes and watch the engine turn them into 
 
 ![CI](https://github.com/Shadman19/scalable-llm-engine/actions/workflows/ci.yml/badge.svg)
 
-## Demo
+## Project scope
 
-> **▶️ Watch the 60-second demo:** [LINK_HERE]
+A prototype **LLM gateway** built around the MiniMax API, with Docker and
+Kubernetes deployment manifests, cost accounting, Redis caching, and a job queue.
+It demonstrates application and deployment structure; it does not establish
+production reliability or measured scaling behavior.
 
-The engine running locally — a technician's raw work-order notes turned into a
-clean, structured client summary via the MiniMax-backed API, served through the
-auto-generated OpenAPI UI.
-
-<!-- Optional: add a screenshot of the /docs page or smoke-test output:
-![API docs](docs/images/demo.png)
--->
-
-A production-grade **LLM gateway** built around the MiniMax API, designed to scale
-on Kubernetes. It demonstrates a clean path from a fast MVP to a horizontally
-scalable, cost-tracked, autoscaling service — and a planned, low-friction
-migration to self-hosted GPU inference.
+The API can turn a technician's raw work-order notes into a structured client
+summary. The Quick start below describes how to run it locally and inspect its
+OpenAPI UI. Self-hosted GPU inference is a documented feasibility study, not a
+measured capability of this repository.
 
 Built as a reference implementation for an **IT field-service marketplace**
 (technician ↔ work-order platform). The included use case turns a technician's
@@ -45,7 +40,8 @@ raw work-order notes into a clean, structured client summary.
 - **Docker + docker-compose** for one-command local dev.
 - **Kubernetes manifests** with health probes, HPA (API) and KEDA queue-depth
   autoscaling (workers), ingress + TLS.
-- **Tests** (no infra required) + smoke test + load test scripts.
+- **Unit tests** (no infrastructure required), plus smoke and load-test scripts.
+  Included scripts are not evidence that a deployment or benchmark was run.
 - **Three design docs** covering Parts 1, 6, and 7.
 
 ---
@@ -177,7 +173,7 @@ defaults — the pure logic — so they run anywhere.
 
 ## Deploying to Kubernetes
 
-See [`scalable-deployment.md`](docs/06-scalable-deployment.md) for the
+See [`scalable-deployment.md`](docs/scalable-deployment.md) for the
 full walkthrough. Short version:
 
 ```bash
@@ -200,9 +196,9 @@ kubectl apply -f k8s/09-ingress.yaml         # adjust host + TLS
 
 | Doc | Covers |
 |-----|--------|
-| [`docs/mvp-setup.md`](docs/01-mvp-setup.md) | **Part 1** — MiniMax API MVP, gateway rationale, model routing |
-| [`docs/scalable-deployment.md`](docs/06-scalable-deployment.md) | **Part 6** — Docker, Kubernetes, Redis, queue, autoscaling |
-| [`docs/self-hosted-feasibility.md`](docs/07-self-hosted-feasibility.md) | **Part 7** — self-hosting break-even, GPU sizing, vLLM, compliance |
+| [`docs/mvp-setup.md`](docs/mvp-setup.md) | **Part 1** — MiniMax API MVP, gateway rationale, model routing |
+| [`docs/scalable-deployment.md`](docs/scalable-deployment.md) | **Part 6** — Docker, Kubernetes, Redis, queue, autoscaling |
+| [`docs/self-hosted-feasibility.md`](docs/self-hosted-feasibility.md) | **Part 7** — self-hosting break-even, GPU sizing, vLLM, compliance |
 | [`docs/architecture.md`](docs/architecture.md) | Codebase map + design principles |
 
 ---
@@ -244,6 +240,9 @@ All via environment variables (see `.env.example`):
 
 ## Notes & honesty
 
+- This repository does not report production traffic, uptime, a security review,
+  GPU throughput, or observed autoscaling results. Kubernetes manifests and
+  feasibility estimates should not be presented as measurements.
 - Model names and pricing in `app/core/cost.py` are **approximate** — confirm
   against your MiniMax billing page before relying on the cost figures.
 - The single-pod Redis and list-based queue are deliberate MVP choices; the docs
